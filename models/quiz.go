@@ -3,6 +3,8 @@ import (
     "os"
     "bufio"
     "strings"
+    "math/rand"
+    "fmt"
     "github.com/tricertc/quizzer/utils"
 )
 
@@ -55,6 +57,20 @@ func (q *Quiz) Load(filename string) (bool, error) {
     return true, nil
 }
 
+func (q *Quiz) shuffle() {
+    N := len(q.Questions)
+    for i := 0; i < N; i++ {
+        j := i + rand.Intn(N - i)
+        q.Questions[i], q.Questions[j] = q.Questions[j], q.Questions[i]
+    }
+}
+
 func (q *Quiz) Play() {
-    utils.Clear()
+    q.shuffle()
+    for i, qq := range(q.Questions) {
+        utils.Clear()
+
+        fmt.Printf("Question %d:\n\n", i + 1)
+        fmt.Printf("  %s\n\n", qq.Text)
+    }
 }
