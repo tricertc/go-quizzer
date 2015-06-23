@@ -3,6 +3,7 @@ import (
     "os"
     "bufio"
     "strings"
+    "github.com/tricertc/quizzer/utils"
 )
 
 type Quiz struct {
@@ -52,4 +53,8 @@ func (q *Quiz) Load(filename string) (bool, error) {
     }
 
     return true, nil
+}
+
+func (q *Quiz) Play() {
+    utils.Clear()
 }
