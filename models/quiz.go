@@ -1,9 +1,17 @@
 package models
-import "os"
+import (
+    "os"
+    "bufio"
+    "strings"
+)
 
 type Quiz struct {
     Questions []Question
     Score int
+}
+
+func (q *Quiz) AddQuestion(question Question) {
+    q.Questions = append(q.Questions, question)
 }
 
 func (q *Quiz) Load(filename string) (bool, error) {
@@ -15,6 +23,26 @@ func (q *Quiz) Load(filename string) (bool, error) {
         return false, err
     }
     defer f.Close()
+
+    reader := bufio.NewReader(f)
+    scanner := bufio.NewScanner(reader)
+
+    for scanner.Scan() {
+        s := scanner.Text()
+        cols := strings.Split(s, "\t")
+
+        if len(cols) < 4 {
+            continue
+        }
+
+        question := Question{ Text: cols[0], Explanation: cols[len(cols) - 1]}
+        answers := strings.Split(cols[len(cols) - 2], "|")
+        for _, a := range(answers) {
+            question.AddAnswer(a)
+        }
+
+        q.AddQuestion(question)
+    }
 
     return true, nil
 }

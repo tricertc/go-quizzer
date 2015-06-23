@@ -4,6 +4,7 @@ import(
     "flag"
     "github.com/tricertc/quizzer/models"
     "log"
+    "fmt"
 )
 
 var filename string
@@ -17,4 +18,6 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+
+    fmt.Println(quiz)
 }
