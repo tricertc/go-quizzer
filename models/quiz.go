@@ -6,6 +6,7 @@ import (
     "math/rand"
     "fmt"
     "github.com/tricertc/quizzer/utils"
+    "log"
 )
 
 type Quiz struct {
@@ -67,10 +68,35 @@ func (q *Quiz) shuffle() {
 
 func (q *Quiz) Play() {
     q.shuffle()
+
     for i, qq := range(q.Questions) {
         utils.Clear()
 
         fmt.Printf("Question %d:\n\n", i + 1)
         fmt.Printf("  %s\n\n", qq.Text)
+
+        for _, opt := range(qq.Options) {
+            fmt.Printf("    %s) %s\n\n", opt.Label, opt.Text)
+        }
+
+        N := len(qq.Answers)
+        answers := make([]string, N)
+
+        for i, _ := range(answers) {
+            var ans string
+
+            if N == 1 {
+                fmt.Printf("  Answer: ")
+            } else {
+                fmt.Printf(" Answer %d of %d: ", i+1, N)
+            }
+
+            _, err := fmt.Scanf("%s\n", &ans)
+            if err != nil {
+                log.Fatal(err)
+            }
+
+            answers[i] = ans
+        }
     }
 }
