@@ -6,7 +6,6 @@ import (
     "math/rand"
     "fmt"
     "github.com/tricertc/quizzer/utils"
-    "log"
 )
 
 type Quiz struct {
@@ -91,11 +90,7 @@ func (q *Quiz) Play() {
                 fmt.Printf(" Answer %d of %d: ", i+1, N)
             }
 
-            _, err := fmt.Scanf("%s\n", &ans)
-            if err != nil {
-                log.Fatal(err)
-            }
-
+            fmt.Scanf("%s\n", &ans)
             answers[i] = ans
         }
 
@@ -115,5 +110,10 @@ func (q *Quiz) Play() {
     }
 
     utils.Clear()
-    fmt.Printf("Test complete.  You answered %d questions correctly out of %d\n", q.Score, len(q.Questions))
+
+    fmt.Printf("*** TEST COMPLETE ***\n\n")
+    fmt.Printf("  You answered %d correctly out of %d\n\n\n", q.Score, len(q.Questions))
+
+    pct := (float64(q.Score) / float64(len(q.Questions))) * 100.00
+    fmt.Printf("Final Score: %.2f%%\n\n\n\n", pct)
 }
