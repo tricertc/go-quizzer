@@ -3,6 +3,7 @@ import (
     "os"
     "bufio"
     "strings"
+    "fmt"
 )
 
 type Quiz struct {
@@ -36,6 +37,10 @@ func (q *Quiz) Load(filename string) (bool, error) {
         }
 
         question := Question{ Text: cols[0], Explanation: cols[len(cols) - 1]}
+
+        options := cols[1:len(cols) - 2]
+        fmt.Println(options)
+
         answers := strings.Split(cols[len(cols) - 2], "|")
         for _, a := range(answers) {
             question.AddAnswer(a)
