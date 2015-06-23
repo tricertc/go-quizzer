@@ -98,5 +98,22 @@ func (q *Quiz) Play() {
 
             answers[i] = ans
         }
+
+        result := qq.Validate(answers)
+        fmt.Printf("\n")
+        if result {
+            q.Score++
+            fmt.Printf("Correct!")
+        } else {
+            fmt.Printf("Wrong.  The correct answer was %s", strings.Join(qq.Answers, " and "))
+        }
+        fmt.Printf("\n\n")
+        fmt.Printf("Explanation:\n\n  %s\n\n", qq.Explanation)
+
+        fmt.Printf("<enter> to continue...")
+        fmt.Scanf("\n")
     }
+
+    utils.Clear()
+    fmt.Printf("Test complete.  You answered %d questions correctly out of %d\n", q.Score, len(q.Questions))
 }
