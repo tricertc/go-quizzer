@@ -7,10 +7,12 @@ import(
 )
 
 var filename string
+var maxerror int
 var quiz models.Quiz
 
 func main() {
     flag.StringVar(&filename, "fn", "", "data file path")
+    flag.IntVar(&maxerror, "max", 0, "maximum errors before exiting")
     flag.Parse()
 
     _, err := quiz.Load(filename)
@@ -18,5 +20,5 @@ func main() {
         log.Fatal(err)
     }
 
-    quiz.Play()
+    quiz.Play(maxerror)
 }

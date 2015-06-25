@@ -65,7 +65,7 @@ func (q *Quiz) shuffle() {
     }
 }
 
-func (q *Quiz) Play() {
+func (q *Quiz) Play(maxerror int) {
     q.shuffle()
 
     for i, qq := range(q.Questions) {
@@ -107,6 +107,13 @@ func (q *Quiz) Play() {
 
         fmt.Printf("<enter> to continue...")
         fmt.Scanf("\n")
+
+        if maxerror > 0 && (i + 1) - q.Score >= maxerror {
+            fmt.Printf("\n\n*** FAILED ***\n\n")
+            fmt.Printf("<enter> to continue...")
+            fmt.Scanf("\n")
+            break
+        }
     }
 
     utils.Clear()
