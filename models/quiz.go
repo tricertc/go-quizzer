@@ -6,6 +6,7 @@ import (
     "math/rand"
     "fmt"
     "github.com/tricertc/quizzer/utils"
+    "time"
 )
 
 type Quiz struct {
@@ -58,6 +59,7 @@ func (q *Quiz) Load(filename string) (bool, error) {
 }
 
 func (q *Quiz) shuffle() {
+    rand.Seed(time.Now().UnixNano())
     N := len(q.Questions)
     for i := 0; i < N; i++ {
         j := i + rand.Intn(N - i)
