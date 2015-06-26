@@ -8,11 +8,14 @@ import(
 
 var filename string
 var maxerror int
+var shuffle bool
+
 var quiz models.Quiz
 
 func main() {
     flag.StringVar(&filename, "fn", "", "data file path")
     flag.IntVar(&maxerror, "max", 0, "maximum errors before exiting")
+    flag.BoolVar(&shuffle, "shuffle", false, "shuffle questions")
     flag.Parse()
 
     _, err := quiz.Load(filename)
@@ -20,5 +23,5 @@ func main() {
         log.Fatal(err)
     }
 
-    quiz.Play(maxerror)
+    quiz.Play(maxerror, shuffle)
 }

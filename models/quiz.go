@@ -67,8 +67,10 @@ func (q *Quiz) shuffle() {
     }
 }
 
-func (q *Quiz) Play(maxerror int) {
-    q.shuffle()
+func (q *Quiz) Play(maxerror int, shuffle bool) {
+    if shuffle {
+        q.shuffle()
+    }
 
     for i, qq := range(q.Questions) {
         utils.Clear()
